@@ -13,14 +13,4 @@ public class CatshopApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CatshopApplication.class, args);
 	}
-
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurerAdapter() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/api/cats").allowedOrigins("http://localhost:3000");
-			}
-		};
-	}
 }
