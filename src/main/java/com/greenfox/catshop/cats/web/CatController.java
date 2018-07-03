@@ -16,6 +16,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class CatController {
 
+
     @Autowired
     CatService catService;
 
@@ -29,26 +30,26 @@ public class CatController {
         return catService.getCatByID(id);
     }
 
-    @GetMapping("/cats/{name}")
+    @GetMapping("/cats/name/{name}")
     public CatDTO getCat(@PathVariable("name") String name) {
         return catService.getCatByName(name);
     }
 
     @ExceptionHandler({CatNotFoundException.class})
     public ErrorResource handlePermissionException(HttpServletResponse response) {
-        response.setStatus(403);
+        response.setStatus(404);
         return new ErrorResource(
                 "Cat not found.",
                 HttpStatus.BAD_REQUEST);
     }
+
     @PostMapping({"/api/cats"})
-    public ResponseEntity addNewCat(@RequestBody() CatDTO catDTO){
+    public ResponseEntity addNewCat(@RequestBody() CatDTO catDTO) {
         try {
             catService.addNewCat(catDTO);
             return new ResponseEntity(HttpStatus.OK);
-        } catch (Exception ex){
-            return new ResponseEntity("Error",HttpStatus.BAD_REQUEST);
+        } catch (Exception ex) {
+            return new ResponseEntity("Error", HttpStatus.BAD_REQUEST);
         }
-
     }
 }
