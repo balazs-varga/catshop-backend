@@ -6,7 +6,6 @@ import com.greenfox.catshop.cats.util.Gender;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 public class CatDTO {
 

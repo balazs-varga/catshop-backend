@@ -28,7 +28,8 @@ public class CartService {
 
         if (cartModelList != null) {
             for (int i = 0; i < cartModelList.size(); i++) {
-                if (cartModelList.get(i).getCartId() != null && cartRepository.findOneById(cartModelList.get(i).getCartId()) == null) {
+                if (cartModelList.get(i).getCartId() != null &&
+                        cartRepository.findOneById(cartModelList.get(i).getCartId()) == null) {
                     throw new CartElementNotFound("Cart Element not found.");
                 }
 
