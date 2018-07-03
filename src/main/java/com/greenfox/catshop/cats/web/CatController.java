@@ -21,11 +21,6 @@ public class CatController {
   @Autowired
   CatService catService;
 
-  @GetMapping("/cats")
-  public List<CatDTO> listCats() {
-    return catService.listCats();
-  }
-
   @GetMapping({"/cats"})
   public List<CatDTO> fluffinessQuery(@RequestParam(name = "fluffiness", required = false) String fluffiness) {
     if (fluffiness == null) {
