@@ -7,9 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Getter
 @Setter
@@ -22,9 +20,10 @@ public class CatDTO {
     private String name;
     private Long price;
     private Long piece;
-    private List<Cat> parents;
     private Fluffiness fluffiness;
     private boolean isOnSale;
     private int amazingLevel;
     private String description;
+    private String mommy;
+    private String daddy;
 }
