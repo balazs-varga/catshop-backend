@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
@@ -36,6 +37,11 @@ public class CatController {
   @GetMapping("/cats/search/{name}")
   public List<CatDTO> searchCatByName(@PathVariable("name") String name) {
       return catService.searchCatsByName(name);
+  }
+
+  @DeleteMapping("/cats/{id}")
+  public void deleteCatById(@PathVariable("id") Long id) {
+      deleteCatById(id);
   }
 
   @ExceptionHandler({CatNotFoundException.class})
