@@ -18,62 +18,61 @@ import java.util.List;
 @RequestMapping("/api")
 public class CatController {
 
-  @Autowired
-  CatService catService;
+    @Autowired
+    CatService catService;
 
-  @GetMapping({"/cats"})
-  public List<CatDTO> fluffinessQuery(@RequestParam(name = "fluffiness", required = false) String fluffiness) {
-    if (fluffiness == null) {
-      return catService.listCats();
-    } else {
+    @GetMapping({"/cats"})
+    public List<CatDTO> fluffinessQuery(@RequestParam(name = "fluffiness", required = false) String fluffiness) {
+        if (fluffiness == null) {
+            return catService.listCats();
+        } else {
+            List<CatDTO> catDTOList = new ArrayList<>();
 
-      List<CatDTO> catDTOList = new ArrayList<>();
+            if (fluffiness.equals(Fluffiness.SUPER_FLUFFY.toString()) || fluffiness.equals(Fluffiness.SEMI_FLUFFY.toString())
+                    || fluffiness.equals(Fluffiness.SPECIAL_CARE.toString())) {
+                catDTOList = catService.listCatsByFluffiness(fluffiness);
+            } else {
+                throw new CatNotFoundException("Cat not found.");
+            }
 
-      if (fluffiness.equals(Fluffiness.SUPER_FLUFFY.toString()) || fluffiness.equals(Fluffiness.SEMI_FLUFFY.toString())
-              || fluffiness.equals(Fluffiness.SPECIAL_CARE.toString())) {
-        catDTOList = catService.listCatsByFluffiness(fluffiness);
-      } else {
-        throw new CatNotFoundException("Cat not found.");
-      }
-
-      if (catDTOList == null) {
-        throw new CatNotFoundException("Cat not found.");
-      } else {
-        return catDTOList;
-      }
+            if (catDTOList == null) {
+                throw new CatNotFoundException("Cat not found.");
+            } else {
+                return catDTOList;
+            }
+        }
     }
-  }
 
-  @GetMapping("/cats/name/{name}")
-  public CatDTO getCat(@PathVariable("name") String name) {
-    return catService.getCatByName(name);
-  }
-
-  @GetMapping("/cats/search/{name}")
-  public List<CatDTO> searchCatByName(@PathVariable("name") String name) {
-    return catService.searchCatsByName(name);
-  }
-
-  @DeleteMapping("/cats/{id}")
-  public void deleteCatById(@PathVariable("id") Long id) {
-    deleteCatById(id);
-  }
-
-  @ExceptionHandler({CatNotFoundException.class})
-  public ErrorResource handlePermissionException(HttpServletResponse response) {
-    response.setStatus(404);
-    return new ErrorResource(
-            "Cat not found.",
-            HttpStatus.BAD_REQUEST);
-  }
-
-  @PostMapping("/cats")
-  public ResponseEntity addNewCat(@RequestBody() CatDTO catDTO) {
-    try {
-      catService.addNewCat(catDTO);
-      return new ResponseEntity("OK", HttpStatus.OK);
-    } catch (Exception ex) {
-      return new ResponseEntity("Error", HttpStatus.BAD_REQUEST);
+    @GetMapping("/cats/name/{name}")
+    public CatDTO getCat(@PathVariable("name") String name) {
+        return catService.getCatByName(name);
     }
-  }
+
+    @GetMapping("/cats/search/{name}")
+    public List<CatDTO> searchCatByName(@PathVariable("name") String name) {
+        return catService.searchCatsByName(name);
+    }
+
+    @DeleteMapping("/cats/{id}")
+    public void deleteCatById(@PathVariable("id") Long id) {
+        catService.deleteCat(id);
+    }
+
+    @ExceptionHandler({CatNotFoundException.class})
+    public ErrorResource handlePermissionException(HttpServletResponse response) {
+        response.setStatus(404);
+        return new ErrorResource(
+                "Cat not found.",
+                HttpStatus.BAD_REQUEST);
+    }
+
+    @PostMapping("/cats")
+    public ResponseEntity addNewCat(@RequestBody() CatDTO catDTO) {
+        try {
+            catService.addNewCat(catDTO);
+            return new ResponseEntity("OK", HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity("Error", HttpStatus.BAD_REQUEST);
+        }
+    }
 }
