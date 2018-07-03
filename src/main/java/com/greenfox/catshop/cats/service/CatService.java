@@ -68,6 +68,22 @@ public class CatService {
         return catList;
     }
 
+    public List<CatDTO> listCatsByFluffiness(String fluffiness) {
+        List<Cat> catList = catRepository.findAllByFluffiness(fluffiness);
+
+        if (catList == null) {
+            throw new CatNotFoundException("Cat not found.");
+        }
+
+        List<CatDTO> catDTOList = new ArrayList<>();
+
+        for (int i = 0; i < catList.size(); i++) {
+            catDTOList.add(convertObjectToDTO(catList.get(i)));
+        }
+
+        return catDTOList;
+    }
+
     private CatDTO convertObjectToDTO(Cat cat){
         CatDTO catDTO = new CatDTO();
         catDTO.setId(cat.getId());

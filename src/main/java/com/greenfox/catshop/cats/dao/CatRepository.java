@@ -12,4 +12,6 @@ public interface CatRepository extends CrudRepository<Cat, Long> {
     Cat findOneById(Long id);
 
     List<Cat> findAll();
+
+    List<Cat> findAllByFluffiness(String fluffiness);
 }
