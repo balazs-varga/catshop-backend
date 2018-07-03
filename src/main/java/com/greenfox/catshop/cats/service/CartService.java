@@ -4,6 +4,7 @@ import com.greenfox.catshop.cats.dao.CartRepository;
 import com.greenfox.catshop.cats.dao.CatRepository;
 import com.greenfox.catshop.cats.error.CartElementNotFound;
 import com.greenfox.catshop.cats.model.*;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -71,6 +72,20 @@ public class CartService {
         }
 
         return catDTOList;
+    }
+
+    public void emptyCart(CartDTO cartDTO) {
+        List<CartModel> cartModelList = cartDTO.getCartElements();
+
+        for (int i = 0; i < cartModelList.size(); i++) {
+            CartModel cartModel = cartModelList.get(i);
+            Cat cat = catRepository.findOneById(cartModel.getId());
+            Cart cart = cartRepository.findOneById(cartModel.getCartId());
+            cat.setPiece(cat.getPiece() + cart.getPiece());
+
+            catRepository.save(cat);
+            cartRepository.delete(cart);
+        }
     }
 
     private void cartCalculator(CartModel dto, Cart cart, Cat cat) {
