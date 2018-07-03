@@ -1,6 +1,11 @@
 package com.greenfox.catshop.cats.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class CartModel {
+    @Id
     private Long id;
     private Long piece;
 

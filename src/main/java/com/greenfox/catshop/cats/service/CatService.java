@@ -111,7 +111,7 @@ public class CatService {
         return catDTOList;
     }
 
-    private CatDTO convertObjectToDTO(Cat cat) {
+    public CatDTO convertObjectToDTO(Cat cat) {
         CatDTO catDTO = new CatDTO();
         catDTO.setId(cat.getId());
         if (cat.getGender() != null) {
@@ -132,7 +132,7 @@ public class CatService {
         return catDTO;
     }
 
-    private Cat convertDTOtoObject(CatDTO catDTO) {
+    public Cat convertDTOtoObject(CatDTO catDTO) {
         Cat cat = new Cat();
         if (catDTO.getGender() != null) {
             cat.setGender(catDTO.getGender().toString());
