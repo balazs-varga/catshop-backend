@@ -4,12 +4,6 @@ import java.util.List;
 
 public class CartDTO {
     private List<CartModel> cartElements;
-    private List<Long> idList;
-
-    public CartDTO(List<CartModel> cartElements, List<Long> idList) {
-        this.cartElements = cartElements;
-        this.idList = idList;
-    }
 
     public CartDTO(List<CartModel> cartElements) {
         this.cartElements = cartElements;
@@ -24,13 +18,5 @@ public class CartDTO {
 
     public void setCartElements(List<CartModel> cartElements) {
         this.cartElements = cartElements;
-    }
-
-    public List<Long> getIdList() {
-        return idList;
-    }
-
-    public void setIdList(List<Long> idList) {
-        this.idList = idList;
     }
 }

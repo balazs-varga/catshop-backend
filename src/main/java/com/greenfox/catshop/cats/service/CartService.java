@@ -2,6 +2,7 @@ package com.greenfox.catshop.cats.service;
 
 import com.greenfox.catshop.cats.dao.CartRepository;
 import com.greenfox.catshop.cats.dao.CatRepository;
+import com.greenfox.catshop.cats.error.CartElementNotFound;
 import com.greenfox.catshop.cats.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,30 +28,63 @@ public class CartService {
 
         if (cartModelList != null) {
             for (int i = 0; i < cartModelList.size(); i++) {
-                Cart cart = new Cart();
-                cart.setCatId(cartModelList.get(i).getId());
-                cart.setPiece(cartModelList.get(i).getPiece());
-
-                Cat cat = catRepository.findOneById(cartModelList.get(i).getId());
-                if (cartModelList.get(i).getPiece() >= cat.getPiece()) {
-                    cart.setPiece(cat.getPiece());
-                    cat.setPiece(0L);
-                } else {
-                    cat.setPiece(cat.getPiece() - cartModelList.get(i).getPiece());
+                if (cartModelList.get(i).getCartId() != null && cartRepository.findOneById(cartModelList.get(i).getCartId()) == null) {
+                    throw new CartElementNotFound("Cart Element not found.");
                 }
 
-                cartRepository.save(cart);
-                catRepository.save(cat);
+                CartModel dto = cartModelList.get(i);
 
-                CatDTO catDTO = catService.convertObjectToDTO(
-                        catRepository.findOneById(cartModelList.get(i).getId()));
-                catDTO.setCartId(cart.getId());
+                if (dto.getCartId() != null) {
+                    Cart cart = cartRepository.findOneById(dto.getCartId());
+                    cart.setId(dto.getCartId());
+                    cart.setCatId(dto.getId());
 
-                catDTOList.add(catDTO);
+                    Cat cat = catRepository.findOneById(dto.getId());
+                    cartCalculator(dto, cart, cat);
+
+                    cartRepository.save(cart);
+                    catRepository.save(cat);
+
+                    CatDTO catDTO = catService.convertObjectToDTO(
+                            catRepository.findOneById(cartModelList.get(i).getId()));
+                    catDTO.setCartId(cart.getId());
+
+                    catDTOList.add(catDTO);
+                } else {
+                    Cart cart = new Cart();
+                    cart.setCatId(dto.getId());
+                    cart.setPiece(dto.getPiece());
+
+                    Cat cat = catRepository.findOneById(dto.getId());
+                    cartCalculator(dto, cart, cat);
+
+                    cartRepository.save(cart);
+                    catRepository.save(cat);
+
+                    CatDTO catDTO = catService.convertObjectToDTO(
+                            catRepository.findOneById(cartModelList.get(i).getId()));
+                    catDTO.setCartId(cart.getId());
+
+                    catDTOList.add(catDTO);
+                }
             }
-
         }
 
         return catDTOList;
+    }
+
+    private void cartCalculator(CartModel dto, Cart cart, Cat cat) {
+        if (dto.getPiece() > cat.getPiece() + cart.getPiece()) {
+            cart.setPiece(cat.getPiece());
+            cat.setPiece(0L);
+        } else if (dto.getPiece() > cart.getPiece()) {
+            Long different = dto.getPiece() - cart.getPiece();
+            cat.setPiece(cat.getPiece() - different);
+            cart.setPiece(dto.getPiece());
+        } else if (dto.getPiece() < cart.getPiece()) {
+            Long different = (cart.getPiece() - dto.getPiece());
+            cat.setPiece(cat.getPiece() + different);
+            cart.setPiece(dto.getPiece());
+        }
     }
 }

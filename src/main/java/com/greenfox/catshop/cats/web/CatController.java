@@ -80,7 +80,7 @@ public class CatController {
   }
 
   @ExceptionHandler({CatNotFoundException.class})
-  public ErrorResource handlePermissionException(HttpServletResponse response) {
+  public ErrorResource handleNotFoundException(HttpServletResponse response) {
     response.setStatus(404);
     return new ErrorResource(
             "Cat not found.",
