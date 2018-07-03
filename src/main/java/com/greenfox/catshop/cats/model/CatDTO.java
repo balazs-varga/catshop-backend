@@ -3,16 +3,20 @@ package com.greenfox.catshop.cats.model;
 import com.greenfox.catshop.cats.util.Fluffiness;
 import com.greenfox.catshop.cats.util.Gender;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 
 public class CatDTO {
 
     private Long id;
+    @Enumerated(EnumType.STRING)
     private Gender gender;
     @NotNull(message = "Name should be provided.")
     private String name;
     private Long price;
     private Long piece;
+    @Enumerated(EnumType.STRING)
     private Fluffiness fluffiness;
     private boolean isOnSale;
     private int amazingLevel;

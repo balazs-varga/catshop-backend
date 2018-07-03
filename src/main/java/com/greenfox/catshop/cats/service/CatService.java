@@ -5,6 +5,8 @@ import com.greenfox.catshop.cats.error.CatNotFoundException;
 import com.greenfox.catshop.cats.model.CartDTO;
 import com.greenfox.catshop.cats.model.Cat;
 import com.greenfox.catshop.cats.model.CatDTO;
+import com.greenfox.catshop.cats.util.Fluffiness;
+import com.greenfox.catshop.cats.util.Gender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -113,13 +115,13 @@ public class CatService {
         CatDTO catDTO = new CatDTO();
         catDTO.setId(cat.getId());
         if (cat.getGender() != null) {
-            catDTO.setGender(cat.getGender());
+            catDTO.setGender(Gender.valueOf(cat.getGender()));
         }
         catDTO.setName(cat.getName());
         catDTO.setPrice(cat.getPrice());
         catDTO.setPiece(cat.getPiece());
         if (cat.getFluffiness() != null) {
-            catDTO.setFluffiness(cat.getFluffiness());
+            catDTO.setFluffiness(Fluffiness.valueOf(cat.getFluffiness()));
         }
         catDTO.setOnSale(cat.isOnSale());
         catDTO.setAmazingLevel(cat.getAmazingLevel());
@@ -133,13 +135,13 @@ public class CatService {
     private Cat convertDTOtoObject(CatDTO catDTO) {
         Cat cat = new Cat();
         if (catDTO.getGender() != null) {
-            cat.setGender(catDTO.getGender());
+            cat.setGender(catDTO.getGender().toString());
         }
         cat.setName(catDTO.getName());
         cat.setPrice(catDTO.getPrice());
         cat.setPiece(catDTO.getPiece());
         if (catDTO.getFluffiness() != null) {
-            cat.setFluffiness(catDTO.getFluffiness());
+            cat.setFluffiness(catDTO.getFluffiness().toString());
         }
         cat.setOnSale(catDTO.isOnSale());
         cat.setAmazingLevel(catDTO.getAmazingLevel());

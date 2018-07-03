@@ -15,11 +15,11 @@ public class Cat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Gender gender;
+    private String gender;
     private String name;
     private Long price;
     private Long piece;
-    private Fluffiness fluffiness;
+    private String fluffiness;
     private boolean isOnSale;
     private int amazingLevel;
     private String description;
@@ -37,11 +37,11 @@ public class Cat {
         this.id = id;
     }
 
-    public Gender getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(Gender gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
@@ -69,11 +69,11 @@ public class Cat {
         this.piece = piece;
     }
 
-    public Fluffiness getFluffiness() {
+    public String getFluffiness() {
         return fluffiness;
     }
 
-    public void setFluffiness(Fluffiness fluffiness) {
+    public void setFluffiness(String fluffiness) {
         this.fluffiness = fluffiness;
     }
 
