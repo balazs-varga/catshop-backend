@@ -3,20 +3,20 @@ package com.greenfox.catshop.cats.model;
 import java.util.List;
 
 public class CartDTO {
-    private List<CartModel> cartElementList;
+    private List<CartModel> elements;
 
-    public CartDTO(List<CartModel> cartElementList) {
-        this.cartElementList = cartElementList;
+    public CartDTO(List<CartModel> elements) {
+        this.elements = elements;
     }
 
     public CartDTO() {
     }
 
-    public List<CartModel> getCartElementList() {
-        return cartElementList;
+    public List<CartModel> getElements() {
+        return elements;
     }
 
-    public void setCartElementList(List<CartModel> cartElementList) {
-        this.cartElementList = cartElementList;
+    public void setElements(List<CartModel> elements) {
+        this.elements = elements;
     }
 }

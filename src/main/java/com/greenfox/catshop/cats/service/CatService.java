@@ -111,12 +111,12 @@ public class CatService {
     public List<CatDTO> listCatsInCart(CartDTO cartDTO) {
         List<CatDTO> catList = new ArrayList<>();
 
-        for (int i = 0; i < cartDTO.getCartElementList().size(); i++) {
-            if (catRepository.findOneById(cartDTO.getCartElementList().get(i).getId()) == null) {
+        for (int i = 0; i < cartDTO.getElements().size(); i++) {
+            if (catRepository.findOneById(cartDTO.getElements().get(i).getId()) == null) {
                 throw new CatNotFoundException("Cat not found.");
             }
 
-            catList.add(convertObjectToDTO(catRepository.findOneById(cartDTO.getCartElementList().get(i).getId())));
+            catList.add(convertObjectToDTO(catRepository.findOneById(cartDTO.getElements().get(i).getId())));
         }
 
         return catList;
@@ -138,7 +138,7 @@ public class CatService {
         return catDTOList;
     }
 
-    private CatDTO convertObjectToDTO(Cat cat) {
+    public CatDTO convertObjectToDTO(Cat cat) {
         CatDTO catDTO = new CatDTO();
         catDTO.setId(cat.getId());
         if (cat.getGender() != null) {
@@ -159,7 +159,7 @@ public class CatService {
         return catDTO;
     }
 
-    private Cat convertDTOtoObject(CatDTO catDTO) {
+    public Cat convertDTOtoObject(CatDTO catDTO) {
         Cat cat = new Cat();
         if (catDTO.getGender() != null) {
             cat.setGender(catDTO.getGender().toString());
