@@ -43,11 +43,11 @@ public class CatController {
                 HttpStatus.BAD_REQUEST);
     }
 
-    @PostMapping({"/api/cats"})
+    @PostMapping("/cats")
     public ResponseEntity addNewCat(@RequestBody() CatDTO catDTO) {
         try {
             catService.addNewCat(catDTO);
-            return new ResponseEntity(HttpStatus.OK);
+            return new ResponseEntity("OK",HttpStatus.OK);
         } catch (Exception ex) {
             return new ResponseEntity("Error", HttpStatus.BAD_REQUEST);
         }
