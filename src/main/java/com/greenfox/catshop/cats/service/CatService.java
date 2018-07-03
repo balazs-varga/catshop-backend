@@ -64,6 +64,7 @@ public class CatService {
     }
 
     public Cat addNewCat(CatDTO catDTO) {
+
         Cat cat = convertDTOtoObject(catDTO);
         catRepository.save(cat);
 
@@ -129,7 +130,7 @@ public class CatService {
         return catDTO;
     }
 
-    private Cat convertDTOtoObject(CatDTO catDTO){
+    private Cat convertDTOtoObject(CatDTO catDTO) {
         Cat cat = new Cat();
         if (catDTO.getGender() != null) {
             cat.setGender(catDTO.getGender());
