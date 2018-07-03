@@ -1,14 +1,22 @@
 package com.greenfox.catshop.cats.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
 public class CartDTO {
     private List<CartModel> cats;
+
+    public CartDTO(List<CartModel> cats) {
+        this.cats = cats;
+    }
+
+    public CartDTO() {
+    }
+
+    public List<CartModel> getCats() {
+        return cats;
+    }
+
+    public void setCats(List<CartModel> cats) {
+        this.cats = cats;
+    }
 }
