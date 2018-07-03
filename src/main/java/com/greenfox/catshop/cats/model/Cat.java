@@ -1,6 +1,5 @@
 package com.greenfox.catshop.cats.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.greenfox.catshop.cats.util.Fluffiness;
 import com.greenfox.catshop.cats.util.Gender;
 import lombok.AllArgsConstructor;
@@ -9,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Getter
 @Setter
