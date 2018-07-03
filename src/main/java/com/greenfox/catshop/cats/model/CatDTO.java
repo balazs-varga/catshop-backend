@@ -23,6 +23,10 @@ public class CatDTO {
     public CatDTO() {
     }
 
+    public CatDTO(@NotNull(message = "Name should be provided.") String name) {
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }

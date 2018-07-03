@@ -6,6 +6,7 @@ import com.greenfox.catshop.cats.service.CatService;
 import com.greenfox.catshop.error.ErrorResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -15,29 +16,39 @@ import java.util.List;
 @RequestMapping("/api")
 public class CatController {
 
-  @Autowired
-  CatService catService;
+    @Autowired
+    CatService catService;
 
-  @GetMapping("/cats")
-  public List<CatDTO> listCats() {
-    return catService.listCats();
-  }
+    @GetMapping("/cats")
+    public List<CatDTO> listCats() {
+        return catService.listCats();
+    }
 
-  @GetMapping("/cats/{id}")
-  public CatDTO getCat(@PathVariable("id") Long id) {
-    return catService.getCatByID(id);
-  }
+    @GetMapping("/cats/{id}")
+    public CatDTO getCat(@PathVariable("id") Long id) {
+        return catService.getCatByID(id);
+    }
 
-  @GetMapping("/cats/{name}")
-  public CatDTO getCat(@PathVariable("name") String name) {
-    return catService.getCatByName(name);
-  }
+    @GetMapping("/cats/{name}")
+    public CatDTO getCat(@PathVariable("name") String name) {
+        return catService.getCatByName(name);
+    }
 
-  @ExceptionHandler({CatNotFoundException.class})
-  public ErrorResource handlePermissionException(HttpServletResponse response) {
-    response.setStatus(403);
-    return new ErrorResource(
-            "Cat not found.",
-            HttpStatus.BAD_REQUEST);
-  }
+    @ExceptionHandler({CatNotFoundException.class})
+    public ErrorResource handlePermissionException(HttpServletResponse response) {
+        response.setStatus(403);
+        return new ErrorResource(
+                "Cat not found.",
+                HttpStatus.BAD_REQUEST);
+    }
+    @PostMapping({"/api/cats"})
+    public ResponseEntity addNewCat(@RequestBody() CatDTO catDTO){
+        try {
+            catService.addNewCat(catDTO);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception ex){
+            return new ResponseEntity("Error",HttpStatus.BAD_REQUEST);
+        }
+
+    }
 }
