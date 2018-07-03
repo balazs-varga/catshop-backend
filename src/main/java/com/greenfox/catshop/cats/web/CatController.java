@@ -33,18 +33,19 @@ public class CatController {
 
   @GetMapping({"/api/cats"})
   public List<CatDTO> fluffinessQuery(@RequestParam(name = "fluffiness", required = false) String fluffiness) {
-    List<CatDTO> catDTOList = new ArrayList<>();
+      List<CatDTO> catDTOList = new ArrayList<>();
 
-    if (fluffiness.equals(Fluffiness.SUPER_FLUFFY.toString()) || fluffiness.equals(Fluffiness.SEMI_FLUFFY.toString())
-            || fluffiness.equals(Fluffiness.SPECIAL_CARE.toString())) {
-      catDTOList = catService.listCatsByFluffiness(fluffiness);
-    }
+      if (fluffiness.equals(Fluffiness.SUPER_FLUFFY.toString()) || fluffiness.equals(Fluffiness.SEMI_FLUFFY.toString())
+              || fluffiness.equals(Fluffiness.SPECIAL_CARE.toString())) {
+          catDTOList = catService.listCatsByFluffiness(fluffiness);
+      }
 
-    if (catDTOList == null) {
-      throw new CatNotFoundException("Cat not found.");
-    } else {
-      return catDTOList;
-    }
+      if (catDTOList == null) {
+          throw new CatNotFoundException("Cat not found.");
+      } else {
+          return catDTOList;
+      }
+  }
 
   @GetMapping("/cats/{id}")
   public CatDTO getCat(@PathVariable("id") Long id) {
