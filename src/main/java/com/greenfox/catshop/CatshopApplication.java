@@ -19,7 +19,7 @@ public class CatshopApplication {
 		return new WebMvcConfigurerAdapter() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/api/cats").allowedOrigins("http://be9a1de2.ngrok.io");
+				registry.addMapping("/api/cats").allowedOrigins("http://localhost:3000");
 			}
 		};
 	}
