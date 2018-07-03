@@ -25,7 +25,12 @@ public class CatController {
 
   @GetMapping("/cats/{id}")
   public CatDTO getCat(@PathVariable("id") Long id) {
-    return catService.getCat(id);
+    return catService.getCatByID(id);
+  }
+
+  @GetMapping("/cats/{name}")
+  public CatDTO getCat(@PathVariable("name") String name) {
+    return catService.getCatByName(name);
   }
 
   @ExceptionHandler({CatNotFoundException.class})
