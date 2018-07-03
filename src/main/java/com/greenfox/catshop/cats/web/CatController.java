@@ -28,7 +28,7 @@ public class CatController {
     return catService.getCatByID(id);
   }
 
-  @GetMapping("/cats/{name}")
+  @GetMapping("/cats/name/{name}")
   public CatDTO getCat(@PathVariable("name") String name) {
     return catService.getCatByName(name);
   }
