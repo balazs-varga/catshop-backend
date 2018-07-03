@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class CatService {
@@ -35,6 +36,32 @@ public class CatService {
 
         if (foundCat == null) {
             throw new CatNotFoundException("Cat not found.");
+        }
+
+        return convertObjectToDTO(foundCat);
+    }
+
+    public CatDTO voteForCatById(Long id, String vote) {
+        Cat foundCat = catRepository.findOneById(id);
+
+        if (foundCat == null) {
+            throw new CatNotFoundException("Cat not found.");
+        }
+
+        Random rand = new Random();
+
+        int priceChange = rand.nextInt(15) + 5;
+
+        if (vote.equals("up")) {
+            foundCat.setAmazingLevel(foundCat.getAmazingLevel() + 1);
+            foundCat.setPrice(foundCat.getPrice() + priceChange);
+            catRepository.save(foundCat);
+        } else if (vote.equals("down") && foundCat.getAmazingLevel() >= 1) {
+            if (foundCat.getPrice() >= 100) {
+                foundCat.setPrice(foundCat.getPrice() - priceChange);
+            }
+            foundCat.setAmazingLevel(foundCat.getAmazingLevel() - 1);
+            catRepository.save(foundCat);
         }
 
         return convertObjectToDTO(foundCat);
