@@ -30,4 +30,6 @@ public class Cat {
     private boolean isOnSale;
     private int amazingLevel;
     private String description;
+    private String daddy;
+    private String mommy;
 }
