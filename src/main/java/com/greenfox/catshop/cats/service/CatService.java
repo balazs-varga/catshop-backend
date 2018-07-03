@@ -28,8 +28,18 @@ public class CatService {
         return catDTOList;
     }
 
-    public CatDTO getCat(Long id) {
+    public CatDTO getCatByID(Long id) {
         Cat foundCat = catRepository.findOneById(id);
+
+        if (foundCat == null) {
+            throw new CatNotFoundException("Cat not found.");
+        }
+
+        return convertObjectToDTO(foundCat);
+    }
+
+    public CatDTO getCatByName(String name) {
+        Cat foundCat = catRepository.findOneByName(name);
 
         if (foundCat == null) {
             throw new CatNotFoundException("Cat not found.");

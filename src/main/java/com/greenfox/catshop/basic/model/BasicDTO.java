@@ -4,11 +4,13 @@ public class BasicDTO {
     private String basicInfo;
     private String serverStatus;
     private String databaseStatus;
+    private String createdBy;
 
-    public BasicDTO(String basicInfo, String serverStatus, String databaseStatus) {
+    public BasicDTO(String basicInfo, String serverStatus, String databaseStatus, String createdBy) {
         this.basicInfo = basicInfo;
         this.serverStatus = serverStatus;
         this.databaseStatus = databaseStatus;
+        this.createdBy = createdBy;
     }
 
     public String getBasicInfo() {
@@ -33,5 +35,13 @@ public class BasicDTO {
 
     public void setDatabaseStatus(String databaseStatus) {
         this.databaseStatus = databaseStatus;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 }

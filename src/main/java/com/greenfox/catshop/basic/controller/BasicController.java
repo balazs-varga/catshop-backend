@@ -9,7 +9,7 @@ public class BasicController {
 
     @GetMapping
     public BasicDTO getBasicInfo(){
-        BasicDTO basicDTO = new BasicDTO("Backend works fine!", "UP", "UP");
+        BasicDTO basicDTO = new BasicDTO("Backend works fine!", "UP", "UP", "Created by the BackEnd👑 and his sluts.");
 
         return basicDTO;
     }
