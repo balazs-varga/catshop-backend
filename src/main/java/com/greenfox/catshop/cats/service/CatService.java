@@ -40,6 +40,24 @@ public class CatService {
         return convertObjectToDTO(foundCat);
     }
 
+    public CatDTO voteForCatById(Long id, String vote) {
+        Cat foundCat = catRepository.findOneById(id);
+
+        if (foundCat == null) {
+            throw new CatNotFoundException("Cat not found.");
+        }
+
+        if (vote.equals("up")) {
+            foundCat.setAmazingLevel(foundCat.getAmazingLevel() + 1);
+            catRepository.save(foundCat);
+        } else if (vote.equals("down") && foundCat.getAmazingLevel() >= 1) {
+            foundCat.setAmazingLevel(foundCat.getAmazingLevel() - 1);
+            catRepository.save(foundCat);
+        }
+
+        return convertObjectToDTO(foundCat);
+    }
+
     public CatDTO getCatByName(String name) {
         Cat foundCat = catRepository.findOneByName(name);
 

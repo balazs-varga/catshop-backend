@@ -75,4 +75,14 @@ public class CatController {
             return new ResponseEntity("Error", HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PutMapping("/cats/{id}")
+    public CatDTO voteForCat(@PathVariable("id") Long id, @RequestParam(name = "vote", required = true) String vote) {
+        return catService.voteForCatById(id, vote);
+    }
+
+    @GetMapping("/cats/{id}")
+    public CatDTO getCatById(@PathVariable("id") Long id) {
+        return catService.getCatByID(id);
+    }
 }
