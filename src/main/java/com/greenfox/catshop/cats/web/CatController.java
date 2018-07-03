@@ -33,11 +33,16 @@ public class CatController {
     return catService.getCatByName(name);
   }
 
+  @GetMapping("/cats/search/{name}")
+  public List<CatDTO> searchCatByName(@PathVariable("name") String name) {
+      return catService.searchCatsByName(name);
+  }
+
   @ExceptionHandler({CatNotFoundException.class})
   public ErrorResource handlePermissionException(HttpServletResponse response) {
-    response.setStatus(404);
-    return new ErrorResource(
-            "Cat not found.",
-            HttpStatus.BAD_REQUEST);
+      response.setStatus(404);
+      return new ErrorResource(
+              "Cat not found.",
+              HttpStatus.BAD_REQUEST);
   }
 }

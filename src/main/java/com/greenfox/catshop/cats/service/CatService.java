@@ -48,6 +48,21 @@ public class CatService {
         return convertObjectToDTO(foundCat);
     }
 
+    public List<CatDTO> searchCatsByName(String name) {
+        List<Cat> catList = catRepository.findByNameContaining(name);
+        List<CatDTO> catDTOList = new ArrayList<>();
+
+        if (catList == null) {
+            throw new CatNotFoundException("Cat not found.");
+        }
+
+        for (Cat aCatList : catList) {
+            catDTOList.add(convertObjectToDTO(aCatList));
+        }
+
+        return catDTOList;
+    }
+
     public Cat addNewCat(CatDTO catDTO) {
         Cat cat = convertDTOtoObject(catDTO);
         catRepository.save(cat);

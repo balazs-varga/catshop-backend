@@ -1,7 +1,9 @@
 package com.greenfox.catshop.cats.dao;
 
 import com.greenfox.catshop.cats.model.Cat;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,4 +16,6 @@ public interface CatRepository extends CrudRepository<Cat, Long> {
     Cat findOneByName(String name);
 
     List<Cat> findAll();
+
+    List<Cat> findByNameContaining(String name);
 }
