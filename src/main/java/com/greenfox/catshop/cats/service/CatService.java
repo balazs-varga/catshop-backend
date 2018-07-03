@@ -48,6 +48,21 @@ public class CatService {
         return convertObjectToDTO(foundCat);
     }
 
+    public List<CatDTO> searchCatsByName(String name) {
+        List<Cat> catList = catRepository.findByNameContaining(name);
+        List<CatDTO> catDTOList = new ArrayList<>();
+
+        if (catList == null) {
+            throw new CatNotFoundException("Cat not found.");
+        }
+
+        for (Cat aCatList : catList) {
+            catDTOList.add(convertObjectToDTO(aCatList));
+        }
+
+        return catDTOList;
+    }
+
     public Cat addNewCat(CatDTO catDTO) {
 
         Cat cat = convertDTOtoObject(catDTO);
@@ -78,7 +93,23 @@ public class CatService {
         return catList;
     }
 
-    private CatDTO convertObjectToDTO(Cat cat) {
+    public List<CatDTO> listCatsByFluffiness(String fluffiness) {
+        List<Cat> catList = catRepository.findAllByFluffiness(fluffiness);
+
+        if (catList == null) {
+            throw new CatNotFoundException("Cat not found.");
+        }
+
+        List<CatDTO> catDTOList = new ArrayList<>();
+
+        for (int i = 0; i < catList.size(); i++) {
+            catDTOList.add(convertObjectToDTO(catList.get(i)));
+        }
+
+        return catDTOList;
+    }
+
+    private CatDTO convertObjectToDTO(Cat cat){
         CatDTO catDTO = new CatDTO();
         catDTO.setId(cat.getId());
         if (cat.getGender() != null) {
