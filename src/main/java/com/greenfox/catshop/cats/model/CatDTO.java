@@ -6,6 +6,7 @@ import com.greenfox.catshop.cats.util.Gender;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 public class CatDTO {
 
@@ -23,6 +24,7 @@ public class CatDTO {
     private String description;
     private String mommy;
     private String daddy;
+    private Long cartId;
 
     public CatDTO() {
     }
@@ -113,5 +115,13 @@ public class CatDTO {
 
     public void setDaddy(String daddy) {
         this.daddy = daddy;
+    }
+
+    public Long getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(Long cartId) {
+        this.cartId = cartId;
     }
 }
