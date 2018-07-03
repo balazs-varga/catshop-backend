@@ -10,15 +10,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import com.greenfox.catshop.error.ErrorResource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class CatController {
 
   @Autowired
   CatService catService;
 
-  @GetMapping({"/api/cats"})
+  @GetMapping("/cats")
   public List<CatDTO> listCats() {
     return catService.listCats();
   }
@@ -37,5 +44,27 @@ public class CatController {
     } else {
       return catDTOList;
     }
+
+  @GetMapping("/cats/{id}")
+  public CatDTO getCat(@PathVariable("id") Long id) {
+    return catService.getCatByID(id);
+  }
+
+  @GetMapping("/cats/name/{name}")
+  public CatDTO getCat(@PathVariable("name") String name) {
+    return catService.getCatByName(name);
+  }
+
+  @GetMapping("/cats/search/{name}")
+  public List<CatDTO> searchCatByName(@PathVariable("name") String name) {
+      return catService.searchCatsByName(name);
+  }
+
+  @ExceptionHandler({CatNotFoundException.class})
+  public ErrorResource handlePermissionException(HttpServletResponse response) {
+      response.setStatus(404);
+      return new ErrorResource(
+              "Cat not found.",
+              HttpStatus.BAD_REQUEST);
   }
 }
