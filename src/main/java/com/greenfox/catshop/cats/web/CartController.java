@@ -1,7 +1,6 @@
 package com.greenfox.catshop.cats.web;
 
 import com.greenfox.catshop.cats.error.CartElementNotFound;
-import com.greenfox.catshop.cats.error.CatNotFoundException;
 import com.greenfox.catshop.cats.model.CartDTO;
 import com.greenfox.catshop.cats.model.CatDTO;
 import com.greenfox.catshop.cats.service.CartService;

@@ -12,7 +12,8 @@ public class BasicController {
 
     @GetMapping
     public BasicDTO getBasicInfo() {
-        BasicDTO basicDTO = new BasicDTO("Backend works fine!", "UP", "UP", "Created by the BackEnd👑 and his sluts.");
+        BasicDTO basicDTO = new BasicDTO("Backend works fine!", "UP",
+                "UP", "Created by the BackEnd👑 and his sluts.");
 
         return basicDTO;
     }
@@ -20,6 +21,5 @@ public class BasicController {
     @GetMapping("/search/{search}")
     public ModelAndView method(@PathVariable("search") String search) {
         return new ModelAndView("redirect:" + "https://www.gyakorikerdesek.hu/kereses.php?keres=" + search);
-
     }
 }
