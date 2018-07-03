@@ -68,7 +68,7 @@ public class CatService {
         return catList;
     }
 
-    public CatDTO convertObjectToDTO(Cat cat){
+    private CatDTO convertObjectToDTO(Cat cat){
         CatDTO catDTO = new CatDTO();
         catDTO.setId(cat.getId());
         catDTO.setGender(cat.getGender());
@@ -85,7 +85,7 @@ public class CatService {
         return catDTO;
     }
 
-    public Cat convertDTOtoObject(CatDTO catDTO){
+    private Cat convertDTOtoObject(CatDTO catDTO){
         Cat cat = new Cat();
         cat.setGender(catDTO.getGender());
         cat.setName(catDTO.getName());
