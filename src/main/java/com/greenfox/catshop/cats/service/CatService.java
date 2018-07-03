@@ -109,7 +109,7 @@ public class CatService {
         return catDTOList;
     }
 
-    private CatDTO convertObjectToDTO(Cat cat){
+    private CatDTO convertObjectToDTO(Cat cat) {
         CatDTO catDTO = new CatDTO();
         catDTO.setId(cat.getId());
         if (cat.getGender() != null) {
