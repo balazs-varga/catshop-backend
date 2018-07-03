@@ -1,8 +1,5 @@
 package com.greenfox.catshop.cats.model;
 
-import com.greenfox.catshop.cats.util.Fluffiness;
-import com.greenfox.catshop.cats.util.Gender;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
