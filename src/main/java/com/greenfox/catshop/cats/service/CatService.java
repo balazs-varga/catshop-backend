@@ -5,6 +5,8 @@ import com.greenfox.catshop.cats.error.CatNotFoundException;
 import com.greenfox.catshop.cats.model.CartDTO;
 import com.greenfox.catshop.cats.model.Cat;
 import com.greenfox.catshop.cats.model.CatDTO;
+import com.greenfox.catshop.cats.util.Fluffiness;
+import com.greenfox.catshop.cats.util.Gender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -113,13 +115,13 @@ public class CatService {
         CatDTO catDTO = new CatDTO();
         catDTO.setId(cat.getId());
         if (cat.getGender() != null) {
-            catDTO.setGender(cat.getGender());
+            catDTO.setGender(Gender.valueOf(cat.getGender().toString()));
         }
         catDTO.setName(cat.getName());
         catDTO.setPrice(cat.getPrice());
         catDTO.setPiece(cat.getPiece());
         if (cat.getFluffiness() != null) {
-            catDTO.setFluffiness(cat.getFluffiness());
+            catDTO.setFluffiness(Fluffiness.valueOf(cat.getFluffiness().toString()));
         }
         catDTO.setOnSale(cat.isOnSale());
         catDTO.setAmazingLevel(cat.getAmazingLevel());
