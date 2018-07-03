@@ -26,25 +26,28 @@ public class CatController {
   @Autowired
   CatService catService;
 
-  @GetMapping("/cats")
-  public List<CatDTO> listCats() {
-    return catService.listCats();
-  }
-
-  @GetMapping({"/api/cats"})
+  @GetMapping({"/cats"})
   public List<CatDTO> fluffinessQuery(@RequestParam(name = "fluffiness", required = false) String fluffiness) {
-    List<CatDTO> catDTOList = new ArrayList<>();
-
-    if (fluffiness.equals(Fluffiness.SUPER_FLUFFY.toString()) || fluffiness.equals(Fluffiness.SEMI_FLUFFY.toString())
-            || fluffiness.equals(Fluffiness.SPECIAL_CARE.toString())) {
-      catDTOList = catService.listCatsByFluffiness(fluffiness);
-    }
-
-    if (catDTOList == null) {
-      throw new CatNotFoundException("Cat not found.");
+    if (fluffiness == null) {
+      return catService.listCats();
     } else {
-      return catDTOList;
+
+      List<CatDTO> catDTOList = new ArrayList<>();
+
+      if (fluffiness.equals(Fluffiness.SUPER_FLUFFY.toString()) || fluffiness.equals(Fluffiness.SEMI_FLUFFY.toString())
+              || fluffiness.equals(Fluffiness.SPECIAL_CARE.toString())) {
+        catDTOList = catService.listCatsByFluffiness(fluffiness);
+      } else {
+        throw new CatNotFoundException("Cat not found.");
+      }
+
+      if (catDTOList == null) {
+        throw new CatNotFoundException("Cat not found.");
+      } else {
+        return catDTOList;
+      }
     }
+  }
 
   @GetMapping("/cats/{id}")
   public CatDTO getCat(@PathVariable("id") Long id) {
