@@ -4,19 +4,14 @@ import com.greenfox.catshop.cats.error.CatNotFoundException;
 import com.greenfox.catshop.cats.model.CatDTO;
 import com.greenfox.catshop.cats.service.CatService;
 import com.greenfox.catshop.cats.util.Fluffiness;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
 import com.greenfox.catshop.error.ErrorResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,6 +20,11 @@ public class CatController {
 
   @Autowired
   CatService catService;
+
+  @GetMapping("/cats")
+  public List<CatDTO> listCats() {
+    return catService.listCats();
+  }
 
   @GetMapping({"/cats"})
   public List<CatDTO> fluffinessQuery(@RequestParam(name = "fluffiness", required = false) String fluffiness) {
@@ -49,11 +49,6 @@ public class CatController {
     }
   }
 
-  @GetMapping("/cats/{id}")
-  public CatDTO getCat(@PathVariable("id") Long id) {
-    return catService.getCatByID(id);
-  }
-
   @GetMapping("/cats/name/{name}")
   public CatDTO getCat(@PathVariable("name") String name) {
     return catService.getCatByName(name);
@@ -61,19 +56,29 @@ public class CatController {
 
   @GetMapping("/cats/search/{name}")
   public List<CatDTO> searchCatByName(@PathVariable("name") String name) {
-      return catService.searchCatsByName(name);
+    return catService.searchCatsByName(name);
   }
 
   @DeleteMapping("/cats/{id}")
   public void deleteCatById(@PathVariable("id") Long id) {
-      deleteCatById(id);
+    deleteCatById(id);
   }
 
   @ExceptionHandler({CatNotFoundException.class})
   public ErrorResource handlePermissionException(HttpServletResponse response) {
-      response.setStatus(404);
-      return new ErrorResource(
-              "Cat not found.",
-              HttpStatus.BAD_REQUEST);
+    response.setStatus(404);
+    return new ErrorResource(
+            "Cat not found.",
+            HttpStatus.BAD_REQUEST);
+  }
+
+  @PostMapping("/cats")
+  public ResponseEntity addNewCat(@RequestBody() CatDTO catDTO) {
+    try {
+      catService.addNewCat(catDTO);
+      return new ResponseEntity("OK", HttpStatus.OK);
+    } catch (Exception ex) {
+      return new ResponseEntity("Error", HttpStatus.BAD_REQUEST);
+    }
   }
 }
