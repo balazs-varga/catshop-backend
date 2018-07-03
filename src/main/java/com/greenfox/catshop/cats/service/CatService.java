@@ -111,12 +111,12 @@ public class CatService {
     public List<CatDTO> listCatsInCart(CartDTO cartDTO) {
         List<CatDTO> catList = new ArrayList<>();
 
-        for (int i = 0; i < cartDTO.getElements().size(); i++) {
-            if (catRepository.findOneById(cartDTO.getElements().get(i).getId()) == null) {
+        for (int i = 0; i < cartDTO.getCartElements().size(); i++) {
+            if (catRepository.findOneById(cartDTO.getCartElements().get(i).getId()) == null) {
                 throw new CatNotFoundException("Cat not found.");
             }
 
-            catList.add(convertObjectToDTO(catRepository.findOneById(cartDTO.getElements().get(i).getId())));
+            catList.add(convertObjectToDTO(catRepository.findOneById(cartDTO.getCartElements().get(i).getId())));
         }
 
         return catList;

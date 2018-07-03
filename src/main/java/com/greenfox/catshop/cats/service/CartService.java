@@ -23,7 +23,7 @@ public class CartService {
 
     public List<CatDTO> createCart(CartDTO cartDTO) {
         List<CatDTO> catDTOList = new ArrayList<>();
-        List<CartModel> cartModelList = cartDTO.getElements();
+        List<CartModel> cartModelList = cartDTO.getCartElements();
 
         if (cartModelList != null) {
             for (int i = 0; i < cartModelList.size(); i++) {
@@ -41,14 +41,14 @@ public class CartService {
 
                 cartRepository.save(cart);
                 catRepository.save(cat);
+
+                CatDTO catDTO = catService.convertObjectToDTO(
+                        catRepository.findOneById(cartModelList.get(i).getId()));
+                catDTO.setCartId(cart.getId());
+
+                catDTOList.add(catDTO);
             }
 
-            for (int i = 0; i < cartModelList.size(); i++) {
-                catDTOList.add(catService.convertObjectToDTO(
-                        catRepository.findOneById(cartModelList.get(i).getId())));
-            }
-        } else {
-            System.out.println("fasz");
         }
 
         return catDTOList;
