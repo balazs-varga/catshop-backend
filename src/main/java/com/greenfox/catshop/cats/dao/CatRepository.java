@@ -17,5 +17,7 @@ public interface CatRepository extends CrudRepository<Cat, Long> {
 
     List<Cat> findAll();
 
+    List<Cat> findAllByFluffiness(String fluffiness);
+
     List<Cat> findByNameContaining(String name);
 }
