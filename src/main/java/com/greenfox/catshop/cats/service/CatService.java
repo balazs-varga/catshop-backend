@@ -49,8 +49,7 @@ public class CatService {
     }
 
     public Cat addNewCat(CatDTO catDTO) {
-        Cat cat = new Cat();
-        cat = convertDTOtoObject(catDTO);
+        Cat cat = convertDTOtoObject(catDTO);
         catRepository.save(cat);
 
         return cat;
@@ -81,11 +80,15 @@ public class CatService {
     private CatDTO convertObjectToDTO(Cat cat){
         CatDTO catDTO = new CatDTO();
         catDTO.setId(cat.getId());
-        catDTO.setGender(cat.getGender());
+        if (cat.getGender() != null) {
+            catDTO.setGender(cat.getGender());
+        }
         catDTO.setName(cat.getName());
         catDTO.setPrice(cat.getPrice());
         catDTO.setPiece(cat.getPiece());
-        catDTO.setFluffiness(cat.getFluffiness());
+        if (cat.getFluffiness() != null) {
+            catDTO.setFluffiness(cat.getFluffiness());
+        }
         catDTO.setOnSale(cat.isOnSale());
         catDTO.setAmazingLevel(cat.getAmazingLevel());
         catDTO.setDescription(cat.getDescription());
@@ -97,11 +100,15 @@ public class CatService {
 
     private Cat convertDTOtoObject(CatDTO catDTO){
         Cat cat = new Cat();
-        cat.setGender(catDTO.getGender());
+        if (catDTO.getGender() != null) {
+            cat.setGender(catDTO.getGender());
+        }
         cat.setName(catDTO.getName());
         cat.setPrice(catDTO.getPrice());
         cat.setPiece(catDTO.getPiece());
-        cat.setFluffiness(catDTO.getFluffiness());
+        if (catDTO.getFluffiness() != null) {
+            cat.setFluffiness(catDTO.getFluffiness());
+        }
         cat.setOnSale(catDTO.isOnSale());
         cat.setAmazingLevel(catDTO.getAmazingLevel());
         cat.setDescription(catDTO.getDescription());
