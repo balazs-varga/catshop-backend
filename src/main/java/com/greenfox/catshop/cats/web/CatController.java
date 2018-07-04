@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/api")
 public class CatController {
