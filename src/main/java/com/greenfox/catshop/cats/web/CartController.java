@@ -4,12 +4,10 @@ import com.greenfox.catshop.cats.error.CartElementNotFound;
 import com.greenfox.catshop.cats.model.CartDTO;
 import com.greenfox.catshop.cats.model.CatDTO;
 import com.greenfox.catshop.cats.service.CartService;
-import com.greenfox.catshop.error.ErrorResource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -36,10 +34,7 @@ public class CartController {
 
 
     @ExceptionHandler({CartElementNotFound.class})
-    public ErrorResource handleCartElementNotFoundException(HttpServletResponse response) {
-        response.setStatus(404);
-        return new ErrorResource(
-                "Cart element not found.",
-                HttpStatus.BAD_REQUEST);
+    public ModelAndView handleNotFoundException() {
+        return new ModelAndView("redirect:" + "https://www.gyakorikerdesek.hu/kereses.php?keres=" + "Miért+hibás+a+frontend?");
     }
 }

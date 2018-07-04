@@ -5,13 +5,12 @@ import com.greenfox.catshop.cats.model.CatDTO;
 import com.greenfox.catshop.cats.service.CartService;
 import com.greenfox.catshop.cats.service.CatService;
 import com.greenfox.catshop.cats.util.Fluffiness;
-import com.greenfox.catshop.error.ErrorResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,10 +84,7 @@ public class CatController {
   }
 
   @ExceptionHandler({CatNotFoundException.class})
-  public ErrorResource handleNotFoundException(HttpServletResponse response) {
-    response.setStatus(404);
-    return new ErrorResource(
-            "Cat not found.",
-            HttpStatus.BAD_REQUEST);
+  public ModelAndView handleNotFoundException() {
+    return new ModelAndView("redirect:" + "https://www.gyakorikerdesek.hu/kereses.php?keres=" + "Miért+hibás+a+frontend?");
   }
 }

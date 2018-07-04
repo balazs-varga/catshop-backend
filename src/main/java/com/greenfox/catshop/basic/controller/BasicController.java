@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class BasicController {
 
-    @GetMapping
+    @GetMapping("")
     public BasicDTO getBasicInfo() {
         BasicDTO basicDTO = new BasicDTO("Backend works fine!", "UP",
                 "UP", "Created by the BackEnd👑 and his sluts.");
