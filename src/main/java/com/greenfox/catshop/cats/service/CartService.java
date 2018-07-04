@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -122,6 +123,27 @@ public class CartService {
 
             soldCatRepository.save(soldCat);
             cartRepository.delete(cart);
+        }
+    }
+
+    public void checkCartDB() {
+        Calendar calendar = Calendar.getInstance();
+
+        List<Cart> carts = cartRepository.findAll();
+
+        for (int i = 0; i < carts.size(); i++) {
+            Cart cart = carts.get(i);
+            if (calendar.get(Calendar.YEAR) >= cart.getYear()
+                    && calendar.get(Calendar.MONTH) >= cart.getMonth()
+                    && calendar.get(Calendar.DAY_OF_MONTH) > cart.getDay()
+                    || calendar.get(Calendar.YEAR) == cart.getYear()
+                    && calendar.get(Calendar.MONTH) == cart.getMonth()
+                    && calendar.get(Calendar.DAY_OF_MONTH) == cart.getDay()
+                    && calendar.get(Calendar.HOUR) + 1 >= cart.getHour()
+                    && calendar.get(Calendar.MINUTE) >= cart.getMinute()) {
+                cartRepository.delete(cart);
+                System.out.println(cart.getId() + ". cart has been deleted.");
+            }
         }
     }
 }

@@ -2,6 +2,7 @@ package com.greenfox.catshop.cats.web;
 
 import com.greenfox.catshop.cats.error.CatNotFoundException;
 import com.greenfox.catshop.cats.model.CatDTO;
+import com.greenfox.catshop.cats.service.CartService;
 import com.greenfox.catshop.cats.service.CatService;
 import com.greenfox.catshop.cats.util.Fluffiness;
 import com.greenfox.catshop.error.ErrorResource;
@@ -21,8 +22,12 @@ public class CatController {
   @Autowired
   CatService catService;
 
+  @Autowired
+  CartService cartService;
+
   @GetMapping({"/cats"})
   public List<CatDTO> fluffinessQuery(@RequestParam(name = "fluffiness", required = false) String fluffiness) {
+    cartService.checkCartDB();
     if (fluffiness == null) {
       return catService.listCats();
     } else {
