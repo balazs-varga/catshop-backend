@@ -103,4 +103,15 @@ public class CartService {
             cart.setPiece(dto.getPiece());
         }
     }
+
+    public void soldCart(CartDTO cartDTO) {
+        List<CartModel> cartModelList = cartDTO.getCartElements();
+
+        for (int i = 0; i < cartModelList.size(); i++) {
+            CartModel cartModel = cartModelList.get(i);
+            Cart cart = cartRepository.findOneById(cartModel.getCartId());
+
+            cartRepository.delete(cart);
+        }
+    }
 }

@@ -29,6 +29,11 @@ public class CartController {
         cartService.emptyCart(cartDTO);
     }
 
+    @PostMapping("/empty-cart")
+    public void soldCart(@RequestBody() CartDTO cartDTO) {
+        cartService.soldCart(cartDTO);
+    }
+
 
     @ExceptionHandler({CartElementNotFound.class})
     public ErrorResource handleCartElementNotFoundException(HttpServletResponse response) {
