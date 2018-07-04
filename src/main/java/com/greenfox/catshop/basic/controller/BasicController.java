@@ -18,8 +18,8 @@ public class BasicController {
         return basicDTO;
     }
 
-    @GetMapping("/search/{search}")
-    public ModelAndView method(@PathVariable("search") String search) {
-        return new ModelAndView("redirect:" + "https://www.gyakorikerdesek.hu/kereses.php?keres=" + search);
+    @GetMapping("/api/admin")
+    public ModelAndView openAdminPage() {
+        return new ModelAndView("redirect:" + "http://be9a1de2.ngrok.io/admin");
     }
 }

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ADMIN PANEL</title>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <div class="panel panel-info" >
+            <div class="panel-heading">
+                <div class="panel-title">ADMIN PANEL</div>
+            </div>
+
+            <div style="padding-top:30px" class="panel-body" >
+
+                <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+
+                <form id="loginform" class="form-horizontal" role="form" action="#" th:action="@{/admin/new}" method="POST">
+
+                    <div style="margin-bottom: 25px; width: 100%;" class="input-group">
+                        <input type="text" class="form-control" name="name" value="" placeholder="name">
+                    </div>
+
+                    <div style="margin-bottom: 25px; width: 100%;" class="input-group">
+                        <input type="text" class="form-control" name="amazinglevel" placeholder="amazing level">
+                    </div>
+
+                    <div style="margin-bottom: 25px; width: 100%;" class="input-group">
+                        <input type="text" class="form-control" name="daddy" placeholder="daddy name">
+                    </div>
+
+                    <div style="margin-bottom: 25px; width: 100%;" class="input-group">
+                        <input type="text" class="form-control" name="mommy" placeholder="mommy name">
+                    </div>
+
+                    <div style="margin-bottom: 25px; width: 100%;" class="input-group">
+                        <input type="text" class="form-control" name="description" placeholder="description">
+                    </div>
+
+                    <div style="margin-bottom: 25px; width: 100%;" class="input-group">
+                        <select name="fluffiness" >
+                            <option value="SUPER_FLUFFY">Super-fluffy</option>
+                            <option value="SEMI_FLUFFY">Semi-fluffy</option>
+                            <option value="SPECIAL_CARE">Special-care</option>
+                        </select>
+                    </div>
+
+                    <div style="margin-bottom: 25px; width: 100%;" class="input-group">
+                        <select name="gender" >
+                            <option value="MALE">Male</option>
+                            <option value="FEMALE">Female</option>
+                            <option value="NEUTRAL">Neutral</option>
+                        </select>
+                    </div>
+
+
+                    <div style="margin-bottom: 25px; width: 100%;" class="input-group">
+                        <input type="text" class="form-control" name="piece" placeholder="piece">
+                    </div>
+
+                    <div style="margin-bottom: 25px; width: 100%;" class="input-group">
+                        <select name="isonsale" >
+                            <option value="true">On SALE</option>
+                            <option value="false">Not on SALE</option>
+                        </select>
+                    </div>
+
+                    <div style="margin-bottom: 25px; width: 100%;" class="input-group">
+                        <input type="text" class="form-control" name="price" placeholder="price">
+                    </div>
+
+                    <div style="margin-top:10px" class="form-group">
+
+                        <div class="col-sm-12 controls">
+                            <button type="submit" id="btn-login" class="btn btn-success">Add</button>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
