@@ -111,18 +111,25 @@ public class CartService {
     public void soldCart(CartDTO cartDTO) {
         List<CartModel> cartModelList = cartDTO.getCartElements();
 
-        for (int i = 0; i < cartModelList.size(); i++) {
-            CartModel cartModel = cartModelList.get(i);
-            Cart cart = cartRepository.findOneById(cartModel.getCartId());
-            Cat cat = catRepository.findOneById(cart.getCatId());
+        if (cartModelList != null) {
+            for (int i = 0; i < cartModelList.size(); i++) {
+                CartModel cartModel = cartModelList.get(i);
+                if (cartModel.getCartId() != null && cartRepository.findOneById(cartModel.getCartId()) != null) {
+                    Cart cart = cartRepository.findOneById(cartModel.getCartId());
 
-            SoldCats soldCat = new SoldCats();
-            soldCat.setName(cat.getName());
-            soldCat.setPiece(cat.getPiece());
-            soldCat.setPrice(cat.getPrice());
+                    Cat cat = catRepository.findOneById(cart.getCatId());
 
-            soldCatRepository.save(soldCat);
-            cartRepository.delete(cart);
+                    SoldCats soldCat = new SoldCats();
+                    soldCat.setName(cat.getName());
+                    soldCat.setPiece(cat.getPiece());
+                    soldCat.setPrice(cat.getPrice());
+
+                    soldCatRepository.save(soldCat);
+                    cartRepository.delete(cart);
+                } else {
+                    throw new CartElementNotFound("Cart element not found.");
+                }
+            }
         }
     }
 
