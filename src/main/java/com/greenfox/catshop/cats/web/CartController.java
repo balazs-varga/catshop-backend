@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
+@CrossOrigin(origins = { "*" }, maxAge = 3000)
 @RestController
 @RequestMapping("/api")
 public class CartController {
@@ -17,6 +18,7 @@ public class CartController {
     @Autowired
     CartService cartService;
 
+    @CrossOrigin(origins = { "*" }, allowCredentials = "false")
     @PostMapping("/cart")
     public List<CatDTO> createCart(@RequestBody() CartDTO cartDTO) {
         return cartService.createCart(cartDTO);
@@ -31,7 +33,6 @@ public class CartController {
     public void soldCart(@RequestBody() CartDTO cartDTO) {
         cartService.soldCart(cartDTO);
     }
-
 
     @ExceptionHandler({CartElementNotFound.class})
     public ModelAndView handleNotFoundException() {
