@@ -29,7 +29,7 @@ public class CartController {
         cartService.emptyCart(cartDTO);
     }
 
-    @PostMapping("/empty-cart")
+    @PostMapping("/sold")
     public void soldCart(@RequestBody() CartDTO cartDTO) {
         cartService.soldCart(cartDTO);
     }

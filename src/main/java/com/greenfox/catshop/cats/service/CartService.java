@@ -2,9 +2,9 @@ package com.greenfox.catshop.cats.service;
 
 import com.greenfox.catshop.cats.dao.CartRepository;
 import com.greenfox.catshop.cats.dao.CatRepository;
+import com.greenfox.catshop.cats.dao.SoldCatRepository;
 import com.greenfox.catshop.cats.error.CartElementNotFound;
 import com.greenfox.catshop.cats.model.*;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +22,9 @@ public class CartService {
 
     @Autowired
     CatService catService;
+
+    @Autowired
+    SoldCatRepository soldCatRepository;
 
     public List<CatDTO> createCart(CartDTO cartDTO) {
         List<CatDTO> catDTOList = new ArrayList<>();
@@ -110,7 +113,14 @@ public class CartService {
         for (int i = 0; i < cartModelList.size(); i++) {
             CartModel cartModel = cartModelList.get(i);
             Cart cart = cartRepository.findOneById(cartModel.getCartId());
+            Cat cat = catRepository.findOneById(cart.getCatId());
 
+            SoldCats soldCat = new SoldCats();
+            soldCat.setName(cat.getName());
+            soldCat.setPiece(cat.getPiece());
+            soldCat.setPrice(cat.getPrice());
+
+            soldCatRepository.save(soldCat);
             cartRepository.delete(cart);
         }
     }
