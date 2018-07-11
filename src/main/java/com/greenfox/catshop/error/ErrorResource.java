@@ -5,10 +5,9 @@ import org.springframework.http.HttpStatus;
 import java.util.Date;
 
 public class ErrorResource {
+
     private final HttpStatus status;
-
     private final String message;
-
     private final Date timestamp;
 
     public ErrorResource(final String message, final HttpStatus status) {

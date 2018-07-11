@@ -8,6 +8,7 @@ import java.util.Calendar;
 
 @Entity
 public class SoldCats {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

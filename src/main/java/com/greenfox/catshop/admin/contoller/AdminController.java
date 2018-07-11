@@ -29,7 +29,8 @@ public class AdminController {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("userValidation") && cookie.getValue().equals(toMD5("Admin" + getTime() + "SECURE0077"))) {
+                if (cookie.getName().equals("userValidation") &&
+                        cookie.getValue().equals(toMD5("Admin" + getTime() + "SECURE0077"))) {
                     return "admin";
                 }
             }
@@ -41,7 +42,6 @@ public class AdminController {
     public String add(@ModelAttribute(value="username") String username,
                       @ModelAttribute(value = "password") String password,
                       HttpServletResponse response) throws NoSuchAlgorithmException {
-
         if (username.equals("admin") && password.equals("admin")) {
             Cookie cookie = new Cookie("userValidation", toMD5("Admin" + getTime() + "SECURE0077"));
             cookie.setPath("/");
@@ -54,21 +54,20 @@ public class AdminController {
 
     @PostMapping("/new")
     public String add(@ModelAttribute(value="name") String name,
-                      @ModelAttribute(value="amazinglevel") String amazinglevel,
+                      @ModelAttribute(value="amazinglevel") String amazingLevel,
                       @ModelAttribute(value="daddy") String daddy,
                       @ModelAttribute(value="mommy") String mommy,
                       @ModelAttribute(value="description") String description,
                       @ModelAttribute(value="fluffiness") String fluffiness,
                       @ModelAttribute(value="gender") String gender,
-                      @ModelAttribute(value="isonsale") String isonsale,
+                      @ModelAttribute(value="isonsale") String isOnSale,
                       @ModelAttribute(value="piece") String piece,
                       @ModelAttribute(value="price") String price) {
-
         Cat cat = new Cat();
         cat.setPiece(Long.parseLong(piece));
         cat.setPrice(Long.parseLong(price));
-        cat.setAmazingLevel(Integer.parseInt(amazinglevel));
-        cat.setOnSale(Boolean.parseBoolean(isonsale));
+        cat.setAmazingLevel(Integer.parseInt(amazingLevel));
+        cat.setOnSale(Boolean.parseBoolean(isOnSale));
         cat.setName(name);
         cat.setDaddy(daddy);
         cat.setMommy(mommy);
@@ -81,19 +80,18 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    public String toMD5(String text) throws NoSuchAlgorithmException {
+    private String toMD5(String text) throws NoSuchAlgorithmException {
         MessageDigest messageDigest = MessageDigest.getInstance("MD5");
         messageDigest.update(text.getBytes(),0, text.length());
-        String hashedPass = new BigInteger(1,messageDigest.digest()).toString(16);
+        String hashedPass = new BigInteger(1, messageDigest.digest()).toString(16);
         if (hashedPass.length() < 32) {
             hashedPass = "0" + hashedPass;
         }
         return  hashedPass;
     }
 
-    public int getTime() {
+    private int getTime() {
         Calendar calendar = Calendar.getInstance();
-
         return calendar.get(Calendar.MONTH + Calendar.DAY_OF_MONTH);
     }
 }

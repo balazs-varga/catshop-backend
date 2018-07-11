@@ -20,7 +20,6 @@ public class Cart {
 
     public Cart() {
         Calendar calendar = Calendar.getInstance();
-
         this.year = calendar.get(Calendar.YEAR);
         this.month = calendar.get(Calendar.MONTH);
         this.day = calendar.get(Calendar.DAY_OF_MONTH);
